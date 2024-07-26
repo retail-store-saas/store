@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: recommendationservice
+  namespace: argocd
+  labels:
+    name: recommendationservice
+spec:
+  syncPolicy:
+    automated: {}
+  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/retail-store-saas/recommendationservice.git
+    targetRevision: HEAD
+    path: kubernetes-manifests
+    kustomize:
+      images:
+        - 112776155351.dkr.ecr.eu-west-1.amazonaws.com/recommendationservice:fa5996630bb613c90576198ed9c6ff8287921215

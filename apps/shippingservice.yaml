@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shippingservice
+  namespace: argocd
+  labels:
+    name: shippingservice
+spec:
+  syncPolicy:
+    automated: {}
+  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/retail-store-saas/shippingservice.git
+    targetRevision: HEAD
+    path: kubernetes-manifests
+    kustomize:
+      images:
+        - 112776155351.dkr.ecr.eu-west-1.amazonaws.com/shippingservice:87789446a27dafa9d71a33a7da961b484b14de9f

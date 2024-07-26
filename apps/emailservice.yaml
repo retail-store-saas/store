@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: emailservice
+  namespace: argocd
+  labels:
+    name: emailservice
+spec:
+  syncPolicy:
+    automated: {}
+  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/retail-store-saas/emailservice.git
+    targetRevision: HEAD
+    path: kubernetes-manifests
+    kustomize:
+      images:
+        - 112776155351.dkr.ecr.eu-west-1.amazonaws.com/emailservice:5b11df303ccb2c4f31e627a024e1639ab02463f5
